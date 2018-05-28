@@ -19,9 +19,11 @@ import { RouterModule, Routes } from '@angular/router';
 const appRoutes: Routes = [
   { path: 'auth/signup', component: SignupComponent },
   { path: 'auth/signin', component: SigninComponent },
-  { path: 'words', component: WordListComponent },
-  { path: 'words/new', component: WordFormComponent },
-  { path: 'words/view/:id', component: SingleWordComponent }
+  { path: 'words', canActivate:[AuthGuardService], component: WordListComponent },
+  { path: 'words/new', canActivate:[AuthGuardService], component: WordFormComponent },
+  { path: 'words/view/:id', canActivate:[AuthGuardService], component: SingleWordComponent },
+  { path: '', redirectTo: 'words', pathMatch:'full'},
+  { path: '**', redirectTo: 'words'}
 ];
 
 @NgModule({
