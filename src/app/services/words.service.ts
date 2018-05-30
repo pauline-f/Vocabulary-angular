@@ -30,7 +30,7 @@ export class WordsService {
   getSingleWord(id: number) {
     return new Promise(
       (resolve, reject) => {
-        firebase.database().ref('/words/+id').once('value').then(
+        firebase.database().ref('/words/' + id).once('value').then(
           (data) => {
             resolve(data.val());
           }, (error) => {
