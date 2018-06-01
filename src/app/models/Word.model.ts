@@ -1,5 +1,4 @@
 export class Word {
-    constructor (public word: string, public translation: string) {
-        
+    constructor (public list: string, public word: string, public translation: string) {
     }
 }

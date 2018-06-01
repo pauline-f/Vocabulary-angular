@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { WordsService } from '../services/words.service';
 import { Router } from '@angular/router/';
 
+
 @Component({
   selector: 'app-word-list',
   templateUrl: './word-list.component.html',
@@ -11,8 +12,10 @@ import { Router } from '@angular/router/';
 })
 export class WordListComponent implements OnInit, OnDestroy {
   words: Word[];
+  lists: String[];
   wordsSubscription: Subscription;
-
+  listsSubscription: Subscription;
+  
   constructor(private wordsService: WordsService, private router: Router) { }
 
   ngOnInit() {
@@ -21,8 +24,12 @@ export class WordListComponent implements OnInit, OnDestroy {
         this.words = words;
       }
     );
+    this.listsSubscription = this.wordsService.listsSubject.subscribe(
+      (lists: String[]) => {
+        this.lists = lists;
+      }
+    );
     this.wordsService.getWords();
-    this.wordsService.emitWords();
   }
 
   onNewWord() {
@@ -36,6 +43,8 @@ export class WordListComponent implements OnInit, OnDestroy {
   onViewWord(id:number) {
     this.router.navigate(['/words', 'view', id]);
   }
+
+  
 
   ngOnDestroy() {
     this.wordsSubscription.unsubscribe();

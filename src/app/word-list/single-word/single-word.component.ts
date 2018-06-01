@@ -17,7 +17,7 @@ export class SingleWordComponent implements OnInit {
               private router: Router) { }
 
   ngOnInit() {
-    this.word = new Word('', '');
+    this.word = new Word('', '', '');
     const id = this.route.snapshot.params['id'];
     this.wordsService.getSingleWord(+id).then(
       (word: Word) => {

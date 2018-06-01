@@ -23,15 +23,17 @@ export class WordFormComponent implements OnInit {
 
   initForm() {
     this.wordForm = this.formBuilder.group( {
+      list: ['', Validators.required],
       word: ['', Validators.required],
       translation: ['', Validators.required]
     });
   }
 
   onSaveWord() {
+    const list = this.wordForm.get('list').value;
     const word = this.wordForm.get('word').value;
     const translation = this.wordForm.get('translation').value;
-    const newWord = new Word(word, translation);
+    const newWord = new Word(list, word, translation);
     this.wordsService.createNewWord(newWord);
     this.router.navigate(['/words']);
   }

@@ -3,6 +3,10 @@
     <h2>Save a new word</h2>
     <form [formGroup]="wordForm" (ngSubmit)="onSaveWord()">
       <div class="form-group">
+        <label for="list">List</label>
+        <input type="text" class="form-control" id="list" formControlName="list">
+      </div>
+      <div class="form-group">
         <label for="word">Word</label>
         <input type="text" class="form-control" id="word" formControlName="word">
       </div>

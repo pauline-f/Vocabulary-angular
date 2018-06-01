@@ -1,6 +1,13 @@
 <div class="row">
   <div class="col-xs-12">
     <h2>Your words</h2>
+
+    <div>
+      <select>
+        <option *ngFor="let list of lists">{{ list }}</option>
+      </select>
+    </div>
+
     <div class="list-group">
       <button class="list-group-item" *ngFor="let word of words; let i = index" (click)="onViewWord(i)">
         <h3 class="list-group-item-heading">
