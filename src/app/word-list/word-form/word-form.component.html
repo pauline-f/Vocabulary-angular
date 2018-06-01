@@ -3,8 +3,19 @@
     <h2>Save a new word</h2>
     <form [formGroup]="wordForm" (ngSubmit)="onSaveWord()">
       <div class="form-group">
-        <label for="list">List</label>
-        <input type="text" class="form-control" id="list" formControlName="list">
+        
+        <!--<input type="text" class="form-control" id="list" formControlName="list">-->
+        <div  [style.display]="newList ? 'none' : 'initial'">
+          <label for="list">List</label>
+          <select class="form-control" id="list" formControlName="list" (change)="addNewList()">
+            <option>Add a new list</option>
+            <option *ngFor="let list of lists" [value]="list">{{ list }}</option>
+          </select>
+        </div>
+        <div class="form-group" *ngIf="newList">
+          <label for="list">Add a new list:</label>
+          <input type="text" class="form-control" id="list" formControlName="list">
+        </div>
       </div>
       <div class="form-group">
         <label for="word">Word</label>
