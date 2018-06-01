@@ -33,7 +33,7 @@ export class WordListComponent implements OnInit, OnDestroy {
   }
 
   onNewWord() {
-    this.router.navigate(['/words', 'new']);
+    this.router.navigate(['/word', 'new']);
   }
 
   onDeleteWord(word: Word) {
