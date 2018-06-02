@@ -2,9 +2,7 @@
   <div class="col-sm-8 col-sm-offset-2">
     <h2>Save a new word</h2>
     <form [formGroup]="wordForm" (ngSubmit)="onSaveWord()">
-      <div class="form-group">
-        
-        <!--<input type="text" class="form-control" id="list" formControlName="list">-->
+      <div class="form-group">        
         <div  [style.display]="newList ? 'none' : 'initial'">
           <label for="list">List</label>
           <select class="form-control" id="list" formControlName="list" (change)="addNewList()">

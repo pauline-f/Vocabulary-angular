@@ -1,20 +1,16 @@
 <div class="row">
-  <div class="col-xs-12">
+  <div class="col">
     <h2>Your words</h2>
 
-    <div class="container row">
-      <div class="col-sm-4">
-          <p>Choose a list:</p>
-      </div>
-      <div class="col-sm-8">
-        <select>
-          <option *ngFor="let list of lists">{{ list }}</option>
+    <div class="form-group">
+        <label for="listoptions">Choose a list:</label>
+        <select class="form-control" id="listoptions" [(ngModel)]="selected" (ngModelChange)="onOptionsSelected()">
+            <option *ngFor="let list of lists" [ngValue]="list">{{ list }}</option>
         </select>
       </div>
-    </div>
 
     <div class="list-group">
-      <button class="list-group-item" *ngFor="let word of words; let i = index" (click)="onViewWord(i)">
+      <button class="list-group-item" *ngFor="let word of filtered; let i = index" (click)="onViewWord(i)">
         <h3 class="list-group-item-heading">
           {{ word.word }}
           <button class="btn btn-default pull-right" (click)="onDeleteWord(word)">
