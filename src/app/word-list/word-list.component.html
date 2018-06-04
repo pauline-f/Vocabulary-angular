@@ -3,22 +3,25 @@
     <h2>Your words</h2>
 
     <div class="form-group">
-        <label for="listoptions">Choose a list:</label>
-        <select class="form-control" id="listoptions" [(ngModel)]="selected" (ngModelChange)="onOptionsSelected()">
+        <label for="listOptions">Choose a list:</label>
+        <select class="form-control" id="listOptions" [(ngModel)]="selected" (ngModelChange)="onOptionsSelected()">
             <option *ngFor="let list of lists" [ngValue]="list">{{ list }}</option>
         </select>
       </div>
 
     <div class="list-group">
-      <button class="list-group-item" *ngFor="let word of filtered; let i = index" (click)="onViewWord(i)">
-        <h3 class="list-group-item-heading">
-          {{ word.word }}
-          <button class="btn btn-default pull-right" (click)="onDeleteWord(word)">
-            <span class="glyphicon glyphicon-trash"></span>
-          </button>
-        </h3>
-        <p class="list-group-item-text">{{ word.translation }}</p>
-      </button>
+      <div *ngFor="let word of filtered">
+          <button class="list-group-item" (click)="onViewWord(word)">
+              <h3 class="list-group-item-heading">
+                {{ word.word }}
+              </h3>
+              <p class="list-group-item-text">{{ word.translation }}</p>
+            </button>
+            <button class="btn btn-default pull-right" (click)="onDeleteWord(word)">
+                <span class="glyphicon glyphicon-trash"></span>
+            </button>
+      </div>
+      
     </div>
     <button class="btn btn-primary" (click)="onNewWord()">New word</button>
   </div>

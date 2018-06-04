@@ -7,7 +7,6 @@ import * as firebase from 'firebase';
 export class WordsService {
 
   words: Word[] = [];
-  lists: String[] = [];
   wordsSubject = new Subject<Word[]>();
   listsSubject = new Subject<String[]>();
 
@@ -16,25 +15,12 @@ export class WordsService {
   emitWords() {
     this.wordsSubject.next(this.words);
   }
-  
-  emitLists() {
-    this.listsSubject.next(this.lists);
-  }
 
   getWords() {
     firebase.database().ref('/words')
       .on('value', (data) => {
         this.words = data.val() ? data.val() : [];
-        this.lists = [];
-
-        for (let item of this.words) {
-          if(this.lists.indexOf(item.list) < 0) { 
-            this.lists.push(item.list);
-          }
-        }
-
         this.emitWords();
-        this.emitLists();
       });
   }
 
@@ -57,7 +43,7 @@ export class WordsService {
   }
 
   createNewWord(newWord: Word) {
-    this.words.push(newWord);
+    this.words.push(newWord);    
     this.saveWords();
     this.emitWords();
   }

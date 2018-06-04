@@ -25,11 +25,13 @@ export class WordListComponent implements OnInit, OnDestroy {
     this.wordsSubscription = this.wordsService.wordsSubject.subscribe(
       (words: Word[]) => {
         this.words = words;
-      }
-    );
-    this.listsSubscription = this.wordsService.listsSubject.subscribe(
-      (lists: String[]) => {
-        this.lists = lists;
+
+        this.lists = [];
+        for (let item of this.words) {
+          if(this.lists.indexOf(item.list) < 0) { 
+            this.lists.push(item.list);
+          }
+        }
       }
     );
     this.wordsService.getWords();
@@ -41,10 +43,18 @@ export class WordListComponent implements OnInit, OnDestroy {
 
   onDeleteWord(word: Word) {
     this.wordsService.removeWords(word);
+    this.onOptionsSelected();
   }
 
-  onViewWord(id:number) {
-    this.router.navigate(['/words', 'view', id]);
+  onViewWord(word: Word) {
+    const wordIndexToView = this.words.findIndex(
+      (wordEl) => {
+        if (wordEl === word) {
+          return true;
+        }
+      }
+    );
+    this.router.navigate(['/words', 'view', wordIndexToView]);
   }
 
   onOptionsSelected() {
