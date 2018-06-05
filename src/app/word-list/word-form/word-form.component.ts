@@ -11,9 +11,10 @@ import { Subscription } from 'rxjs/Subscription';
   styleUrls: ['./word-form.component.scss']
 })
 export class WordFormComponent implements OnInit {
-
+  words: Word[];
   wordForm: FormGroup;
   lists: String[];
+  wordsSubscription: Subscription;  
   listsSubscription: Subscription;
   newList: boolean;
 
@@ -22,9 +23,16 @@ export class WordFormComponent implements OnInit {
               private router: Router) { }
 
   ngOnInit() {
-    this.listsSubscription = this.wordsService.listsSubject.subscribe(
-      (lists: String[]) => {
-        this.lists = lists;
+    this.wordsSubscription = this.wordsService.wordsSubject.subscribe(
+      (words: Word[]) => {
+        this.words = words;
+
+        this.lists = [];
+        for (let item of this.words) {
+          if(this.lists.indexOf(item.list) < 0) { 
+            this.lists.push(item.list);
+          }
+        }
       }
     );
     this.wordsService.getWords();
@@ -39,9 +47,6 @@ export class WordFormComponent implements OnInit {
     } else {
       this.newList = false;
     }
-
-    
-    //this.initForm();
   }
 
   initForm() {
