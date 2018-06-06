@@ -3,26 +3,27 @@
     <h2>Your words</h2>
 
     <div class="form-group">
-        <label for="listOptions">Choose a list:</label>
-        <select class="form-control" id="listOptions" [(ngModel)]="selected" (ngModelChange)="onOptionsSelected()">
-            <option *ngFor="let list of lists" [ngValue]="list">{{ list }}</option>
-        </select>
-      </div>
+      <label for="listOptions">Choose a list:</label>
+      <select class="form-control" id="listOptions" [(ngModel)]="selected" (ngModelChange)="onOptionsSelected()">
+        <option *ngFor="let list of lists" [ngValue]="list">{{ list }}</option>
+      </select>
+    </div>
 
     <div class="list-group">
-      <div *ngFor="let word of filtered">
-          <button class="list-group-item" (click)="onViewWord(word)">
-              <h3 class="list-group-item-heading">
-                {{ word.word }}
-              </h3>
-              <p class="list-group-item-text">{{ word.translation }}</p>
-            </button>
-            <button class="btn btn-default pull-right" (click)="onDeleteWord(word)">
-                <span class="glyphicon glyphicon-trash"></span>
-            </button>
+      <div class="list-group-item col-xs-12" *ngFor="let word of filtered">
+        <h3 class="list-group-item-heading col-xs-10">
+          {{ word.word }}
+        </h3>
+        <p class="list-group-item-text col-xs-10">{{ word.translation }}</p>
+
+        <button class="btn btn-default col-xs-1 align-middle" (click)="onViewWord(word)">
+          <span class="glyphicon glyphicon-eye-open"></span>
+        </button>
+        <button class="btn btn-default col-xs-1" (click)="onDeleteWord(word)">
+          <span class="glyphicon glyphicon-trash"></span>
+        </button>
       </div>
-      
     </div>
-    <button class="btn btn-primary" (click)="onNewWord()">New word</button>
+    <button class="btn btn-primary" style="margin-top: 20px;" (click)="onNewWord()">New word</button>
   </div>
 </div>
