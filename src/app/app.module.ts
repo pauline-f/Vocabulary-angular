@@ -15,6 +15,7 @@ import { AuthGuardService } from './services/auth-guard.service';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
+import { FilterPipe } from './filter.pipe';
 
 const appRoutes: Routes = [
   { path: 'auth/signup', component: SignupComponent },
@@ -34,7 +35,8 @@ const appRoutes: Routes = [
     WordListComponent,
     SingleWordComponent,
     WordFormComponent,
-    HeaderComponent
+    HeaderComponent,
+    FilterPipe
   ],
   imports: [
     BrowserModule,

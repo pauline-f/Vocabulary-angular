@@ -3,7 +3,7 @@ import { Word } from '../models/Word.model';
 import { Subscription } from 'rxjs/Subscription';
 import { WordsService } from '../services/words.service';
 import { Router } from '@angular/router/';
-
+import { FilterPipe } from '../filter.pipe';
 
 @Component({
   selector: 'app-word-list',
@@ -43,7 +43,6 @@ export class WordListComponent implements OnInit, OnDestroy {
 
   onDeleteWord(word: Word) {
     this.wordsService.removeWords(word);
-    this.onOptionsSelected();
   }
 
   onViewWord(word: Word) {
@@ -55,10 +54,6 @@ export class WordListComponent implements OnInit, OnDestroy {
       }
     );
     this.router.navigate(['/words', 'view', wordIndexToView]);
-  }
-
-  onOptionsSelected() {
-    this.filtered = this.words.filter(value=>value.list === this.selected);
   }
 
   ngOnDestroy() {
