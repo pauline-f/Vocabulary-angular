@@ -1,27 +1,23 @@
-# Vocabulary
+# Vocabulary-angular
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.7.3.
+This application's goal is to help learning vocabulary in another language. 
+The user can add words in a list. For each word, there is a translation.
+The user can display all the words or words from a specific list.
+Later, the user will be able to do a quizz. The program will display a word and the user will write the translation. It will be also possible to do the opposite (a translation is displayed, and the user writes the word).
 
-## Development server
+Features available: 
+- Display all the words
+- Display the words of a specific list
+- Add word in a list or a new list
+- Remove word
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
-
-## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+SCENARIO
+1.  The program displays all the words or words of a specific list
+2.  The user adds a word in a list or in a new list:
+	-	The user writes a word.
+	-	The user writes the translation.
+	-	The program saves the word and the translation in the list.
+3.	The user chooses to start a quizz:
+	-	The program displays a word.
+	-	The user writes a translation.
+	-	The program displays if it's a good answer or not.

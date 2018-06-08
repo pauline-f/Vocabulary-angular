@@ -15,9 +15,6 @@ export class WordListComponent implements OnInit, OnDestroy {
   lists: String[];
   wordsSubscription: Subscription;
   listsSubscription: Subscription;
-
-  selected:any;
-  filtered :any;
   
   constructor(private wordsService: WordsService, private router: Router) { }
 
