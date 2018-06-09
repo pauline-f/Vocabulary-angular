@@ -11,6 +11,7 @@ import { WordFormComponent } from './word-list/word-form/word-form.component';
 import { HeaderComponent } from './header/header.component';
 import { AuthService } from './services/auth.service';
 import { WordsService } from './services/words.service';
+import { LanguagesService } from './services/languages.service';
 import { AuthGuardService } from './services/auth-guard.service';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -48,7 +49,8 @@ const appRoutes: Routes = [
   providers: [
     AuthService,
     WordsService,
-    AuthGuardService
+    AuthGuardService,
+    LanguagesService
   ],
   bootstrap: [AppComponent]
 })

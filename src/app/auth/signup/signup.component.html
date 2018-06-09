@@ -10,6 +10,16 @@
         <label for="password">Password</label>
         <input type="password" id="password" class="form-control" formControlName="password">
       </div>
+
+      <div class="form-group">
+        <label for="baseLanguage">Your language</label>
+        <input type="baseLanguage" id="baseLanguage" class="form-control" formControlName="baseLanguage">
+      </div>
+      <div class="form-group">
+        <label for="languageToLearn">Language you want to learn</label>
+        <input type="languageToLearn" id="languageToLearn" class="form-control" formControlName="languageToLearn">
+      </div>
+
       <button class="btn btn-primary" type="submit" [disabled]="signUpForm.invalid">Create account</button>
     </form>
     <p class="text-danger">{{ errorMessage }}</p>

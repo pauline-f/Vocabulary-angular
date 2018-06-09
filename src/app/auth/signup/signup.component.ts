@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
+import { LanguagesService } from '../../services/languages.service';
+import { Languages } from '../../models/Languages.model'
 import { Router } from '@angular/router';
 import { error } from 'util';
 
@@ -15,6 +17,7 @@ export class SignupComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder,
               private authService: AuthService,
+              private languagesService: LanguagesService,
               private router: Router) { }
 
   ngOnInit() {
@@ -24,13 +27,18 @@ export class SignupComponent implements OnInit {
   initForm() {
     this.signUpForm = this.formBuilder.group( {
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.pattern(/[0-9a-zA-Z]{6,}/)]]
+      password: ['', [Validators.required, Validators.pattern(/[0-9a-zA-Z]{6,}/)]],
+      baseLanguage: ['', [Validators.required]],
+      languageToLearn: ['', [Validators.required]]
     });
   }
 
   onSubmit() {
     const email = this.signUpForm.get('email').value;
     const password = this.signUpForm.get('password').value;
+    const baseLanguage = this.signUpForm.get('baseLanguage').value;
+    const languageToLearn = this.signUpForm.get('languageToLearn').value;
+    const languages = new Languages(baseLanguage, languageToLearn);
     this.authService.createNewUser(email, password).then (
       () => {
         this.router.navigate(['/words']);
@@ -39,6 +47,7 @@ export class SignupComponent implements OnInit {
         this.errorMessage = error;
       }
     );
+    this.languagesService.createLanguages(languages);
   }
 
 }
