@@ -63,7 +63,8 @@ export class WordFormComponent implements OnInit {
     const translation = this.wordForm.get('translation').value;
     const newWord = new Word(list, word, translation);
     this.wordsService.createNewWord(newWord);
-    this.router.navigate(['/words']);
+    this.wordForm.get('word').setValue('');
+    this.wordForm.get('translation').setValue('');
   }
 
 }
