@@ -39,7 +39,10 @@ export class WordListComponent implements OnInit, OnDestroy {
   }
 
   onDeleteWord(word: Word) {
-    this.wordsService.removeWords(word);
+    
+    if (confirm("Are you sure to delete the word: " + word.word + "?")) {
+      this.wordsService.removeWords(word);
+    }
   }
 
   onViewWord(word: Word) {
