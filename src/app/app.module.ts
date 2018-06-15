@@ -17,6 +17,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 import { FilterPipe } from './filter.pipe';
+import { QuizzComponent } from './quizz/quizz.component';
 
 const appRoutes: Routes = [
   { path: 'auth/signup', component: SignupComponent },
@@ -24,6 +25,7 @@ const appRoutes: Routes = [
   { path: 'words', canActivate:[AuthGuardService], component: WordListComponent },
   { path: 'word/new', canActivate:[AuthGuardService], component: WordFormComponent },
   { path: 'words/view/:id', canActivate:[AuthGuardService], component: SingleWordComponent },
+  { path: 'quizz', canActivate:[AuthGuardService], component: QuizzComponent},
   { path: '', redirectTo: 'words', pathMatch:'full'},
   { path: '**', redirectTo: 'words'}
 ];
@@ -37,7 +39,8 @@ const appRoutes: Routes = [
     SingleWordComponent,
     WordFormComponent,
     HeaderComponent,
-    FilterPipe
+    FilterPipe,
+    QuizzComponent
   ],
   imports: [
     BrowserModule,
