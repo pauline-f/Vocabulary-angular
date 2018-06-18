@@ -4,6 +4,7 @@ import { WordsService } from '../../services/words.service';
 import { Router } from '@angular/router';
 import { Word } from '../../models/Word.model';
 import { Subscription } from 'rxjs/Subscription';
+import { TranslateService } from '../../services/translate.service';
 
 @Component({
   selector: 'app-word-form',
@@ -11,6 +12,7 @@ import { Subscription } from 'rxjs/Subscription';
   styleUrls: ['./word-form.component.scss']
 })
 export class WordFormComponent implements OnInit {
+  //translate = require('google-translate-api');
   words: Word[];
   wordForm: FormGroup;
   lists: String[];
@@ -20,7 +22,8 @@ export class WordFormComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder,
               private wordsService: WordsService,
-              private router: Router) { }
+              private router: Router,
+              private translateService: TranslateService) { }
 
   ngOnInit() {
     this.wordsSubscription = this.wordsService.wordsSubject.subscribe(
@@ -66,5 +69,11 @@ export class WordFormComponent implements OnInit {
     this.wordForm.get('word').setValue('');
     this.wordForm.get('translation').setValue('');
   }
+
+  translateOneWord() {
+    const word = this.wordForm.get('word').value;
+    this.translateService.translate('en', 'fr', word);
+  }
+  
 
 }

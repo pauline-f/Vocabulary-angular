@@ -18,6 +18,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 import { FilterPipe } from './filter.pipe';
 import { QuizzComponent } from './quizz/quizz.component';
+import { TranslateService } from './services/translate.service';
+
 
 const appRoutes: Routes = [
   { path: 'auth/signup', component: SignupComponent },
@@ -53,7 +55,8 @@ const appRoutes: Routes = [
     AuthService,
     WordsService,
     AuthGuardService,
-    LanguagesService
+    LanguagesService,
+    TranslateService
   ],
   bootstrap: [AppComponent]
 })
