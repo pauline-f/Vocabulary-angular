@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs/Rx';
 import { of } from 'rxjs/observable/of';
 import { AppComponent } from '../app.component';
-//import { Globals } from 'globals'; 
+import { Globals } from '../globals';
 
 @Injectable()
 export class TranslateService {
@@ -113,8 +113,9 @@ export class TranslateService {
           }
         ).subscribe(
           res => {
-            //Globals.TRANSLATED_TEXT = res.toString();
-            console.log(res.toString());
+            var temp = res.toString();
+            var result = temp.substring(temp.indexOf('>')+1, temp.indexOf('<',2));
+            Globals.TRANSLATED_TEXT = result;
           },
           err => {
             console.log("Error in translation");
