@@ -27,7 +27,7 @@ export class LanguagesService {
   }
 
   saveLanguages() {
-    let waitTime = Observable.timer(2000);
+    let waitTime = Observable.timer(3000);
     waitTime.subscribe( x => {
       firebase.database().ref('/languages/' + this.getUserUid()).set(this.languages);
      } 
@@ -35,7 +35,7 @@ export class LanguagesService {
   }
 
   createLanguages(newLanguages: Languages) {
-    this.languages.push(newLanguages);    
+    this.languages.push(newLanguages);  
     this.saveLanguages();
     this.emitLanguages();
   }

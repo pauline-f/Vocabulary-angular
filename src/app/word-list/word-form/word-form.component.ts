@@ -7,6 +7,8 @@ import { Subscription } from 'rxjs/Subscription';
 import { TranslateService } from '../../services/translate.service';
 import { Globals } from '../../globals';
 import { Observable } from 'rxjs/Rx';
+import { Languages } from '../../models/Languages.model';
+import { LanguagesService } from '../../services/languages.service';
 
 @Component({
   selector: 'app-word-form',
@@ -17,16 +19,19 @@ import { Observable } from 'rxjs/Rx';
 export class WordFormComponent implements OnInit {
   words: Word[];
   wordForm: FormGroup;
+  languages: Languages[];
   lists: String[];
   wordsSubscription: Subscription;  
   listsSubscription: Subscription;
+  languagesSubscription: Subscription;
   newList: boolean;
 
   constructor(private formBuilder: FormBuilder,
               private wordsService: WordsService,
               private router: Router,
               private translateService: TranslateService, 
-              private globals: Globals) { }
+              private globals: Globals,
+              private languagesService: LanguagesService) { }
 
   ngOnInit() {
     this.wordsSubscription = this.wordsService.wordsSubject.subscribe(
@@ -41,6 +46,14 @@ export class WordFormComponent implements OnInit {
         }
       }
     );
+
+    this.languagesSubscription = this.languagesService.languagesSubject.subscribe(
+      (languages: Languages[]) => {
+        this.languages = languages;
+      }
+    );
+    
+    this.languagesService.getLanguages();
     this.wordsService.getWords();
     this.newList = false;
     this.initForm();
@@ -75,7 +88,7 @@ export class WordFormComponent implements OnInit {
 
   translateOneWord() {
     const word = this.wordForm.get('word').value;
-    this.translateService.translate('en', 'sv', word);
+    this.translateService.translate(this.languages[0].baseLanguage, this.languages[0].languageToLearn, word);
     let waitTime = Observable.timer(2000);
     waitTime.subscribe( x => {
       this.wordForm.get('translation').setValue(Globals.TRANSLATED_TEXT);
