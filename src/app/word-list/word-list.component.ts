@@ -2,8 +2,10 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Word } from '../models/Word.model';
 import { Subscription } from 'rxjs/Subscription';
 import { WordsService } from '../services/words.service';
+import { LanguagesService } from '../services/languages.service';
 import { Router } from '@angular/router/';
 import { FilterPipe } from '../filter.pipe';
+import { Languages } from '../models/Languages.model';
 
 @Component({
   selector: 'app-word-list',
@@ -13,10 +15,16 @@ import { FilterPipe } from '../filter.pipe';
 export class WordListComponent implements OnInit, OnDestroy {
   words: Word[];
   lists: String[];
+  languages: Languages[];
   wordsSubscription: Subscription;
   listsSubscription: Subscription;
+  languagesSubscription: Subscription;
+  baseLanguage: String;
+  languageToLearn: String;
   
-  constructor(private wordsService: WordsService, private router: Router) { }
+  constructor(private wordsService: WordsService, 
+              private router: Router, 
+              private languagesService: LanguagesService) { }
 
   ngOnInit() {
     this.wordsSubscription = this.wordsService.wordsSubject.subscribe(
@@ -32,6 +40,16 @@ export class WordListComponent implements OnInit, OnDestroy {
       }
     );
     this.wordsService.getWords();
+
+    this.languagesSubscription = this.languagesService.languagesSubject.subscribe(
+      (languages: Languages[]) => {
+        this.languages = languages;
+        this.baseLanguage = this.languages[0].baseLanguage;
+        this.languageToLearn = this.languages[0].languageToLearn;
+      }
+    );
+    
+    this.languagesService.getLanguages();
   }
 
   onNewWord() {

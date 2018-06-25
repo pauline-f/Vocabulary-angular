@@ -24,6 +24,8 @@ export class WordFormComponent implements OnInit {
   wordsSubscription: Subscription;  
   listsSubscription: Subscription;
   languagesSubscription: Subscription;
+  baseLanguage: String;
+  languageToLearn: String;
   newList: boolean;
 
   constructor(private formBuilder: FormBuilder,
@@ -50,6 +52,8 @@ export class WordFormComponent implements OnInit {
     this.languagesSubscription = this.languagesService.languagesSubject.subscribe(
       (languages: Languages[]) => {
         this.languages = languages;
+        this.baseLanguage = this.languages[0].baseLanguage;
+        this.languageToLearn = this.languages[0].languageToLearn;
       }
     );
     

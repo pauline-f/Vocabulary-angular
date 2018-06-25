@@ -12,10 +12,12 @@
 
     <div class="list-group">
       <div class="list-group-item col-xs-12" *ngFor="let word of words | filter: list">
-        <h3 class="list-group-item-heading col-xs-10">
+        <h3 class="list-group-item-heading col-xs-10"><img *ngIf="baseLanguage" src="assets/img/{{baseLanguage}}.png" style="margin-right: 10px;">
           {{ word.word }}
         </h3>
-        <p class="list-group-item-text col-xs-10">{{ word.translation }}</p>
+        <h4 class="list-group-item-text col-xs-10"><img *ngIf="languageToLearn" src="assets/img/{{languageToLearn}}.png" style="margin-right: 10px;">
+          {{ word.translation }}
+        </h4>
 
         <button class="btn btn-default col-xs-1 align-middle" (click)="onViewWord(word)">
           <span class="glyphicon glyphicon-eye-open"></span>
