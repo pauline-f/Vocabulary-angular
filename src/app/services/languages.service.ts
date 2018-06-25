@@ -3,8 +3,6 @@ import { Languages } from '../models/Languages.model';
 import { Subject } from 'rxjs/Subject';
 import * as firebase from 'firebase';
 import { AuthGuardService } from '../services/auth-guard.service';
-import { Observable } from 'rxjs/Rx';
-
 
 @Injectable()
 export class LanguagesService {
@@ -27,11 +25,7 @@ export class LanguagesService {
   }
 
   saveLanguages() {
-    let waitTime = Observable.timer(3000);
-    waitTime.subscribe( x => {
       firebase.database().ref('/languages/' + this.getUserUid()).set(this.languages);
-     } 
-    );
   }
 
   createLanguages(newLanguages: Languages) {
@@ -42,6 +36,10 @@ export class LanguagesService {
 
   getUserUid() {
     return this.authGuardService.getUid();
+  }
+
+  deleteLanguages() {
+    this.languages = [];
   }
 
 }

@@ -19,8 +19,8 @@ export class WordListComponent implements OnInit, OnDestroy {
   wordsSubscription: Subscription;
   listsSubscription: Subscription;
   languagesSubscription: Subscription;
-  baseLanguage: String;
-  languageToLearn: String;
+  baseLanguage: string;
+  languageToLearn: string;
   
   constructor(private wordsService: WordsService, 
               private router: Router, 
@@ -48,7 +48,6 @@ export class WordListComponent implements OnInit, OnDestroy {
         this.languageToLearn = this.languages[0].languageToLearn;
       }
     );
-    
     this.languagesService.getLanguages();
   }
 
@@ -77,4 +76,12 @@ export class WordListComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.wordsSubscription.unsubscribe();
   }
+
+  audioWord(word: Word) {
+    var audio = new SpeechSynthesisUtterance(word.translation);
+    audio.lang = this.languageToLearn;
+    window.speechSynthesis.speak(audio);
+  }
+  
+
 }

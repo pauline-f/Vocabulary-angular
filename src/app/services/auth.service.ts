@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import * as firebase from 'firebase';
+import { LanguagesService } from '../services/languages.service';
 
 @Injectable()
 export class AuthService {
 
-  constructor() { }
+  constructor(private languagesService: LanguagesService) { }
 
   createNewUser (email: string, password: string) {
     return new Promise (
@@ -38,6 +39,7 @@ export class AuthService {
 
   signOutUser() {
     firebase.auth().signOut();
+    this.languagesService.deleteLanguages();
   }
 
 

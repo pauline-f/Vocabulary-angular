@@ -4,7 +4,8 @@ import { AuthService } from '../../services/auth.service';
 import { LanguagesService } from '../../services/languages.service';
 import { Languages } from '../../models/Languages.model'
 import { Router } from '@angular/router';
-import { error } from 'util';
+import { Observable } from 'rxjs/Rx';
+
 
 @Component({
   selector: 'app-signup',
@@ -41,13 +42,14 @@ export class SignupComponent implements OnInit {
     const languages = new Languages(baseLanguage, languageToLearn);
     this.authService.createNewUser(email, password).then (
       () => {
-        this.router.navigate(['/words']);
+          this.languagesService.createLanguages(languages);
+          this.router.navigate(['/words']);
       },
       (error) => {
         this.errorMessage = error;
       }
     );
-    this.languagesService.createLanguages(languages);
+    
   }
 
 }
