@@ -5,21 +5,22 @@
         <div class="form-group">        
           <div >
             <label for="list">List</label>
-            <select class="form-control" id="list" formControlName="list" (change)="displayOneWord()">
+            <select class="form-control" id="list" formControlName="list" (change)="wordsOfList()">
               <option *ngFor="let list of lists" [value]="list">{{ list }}</option>
             </select>
           </div>
         </div>
         <div class="form-group">
-          <h3>{{ oneWord }}</h3>
+            <h3><img *ngIf="questionLanguage" src="assets/img/{{questionLanguage}}.png" style="margin-right: 10px;">{{ question }}</h3>
         </div>
 
         
         <div class="form-group">
-          <label for="translation">Translation</label>
-          <input type="text" class="form-control" id="translation" formControlName="translation">
+          <img *ngIf="answerLanguage" src="assets/img/{{answerLanguage}}.png" style="margin-right: 10px;">
+          <label for="answer">Answer</label>
+          <input type="text" class="form-control" id="answer" formControlName="answer">
         </div>
-        <button class="btn btn-success" [disabled]="quizzForm.invalid" type="submit" (click)="checkTranslation()">Ok</button>
+        <button class="btn btn-success" [disabled]="quizzForm.invalid" type="submit" (click)="checkAnswer()">Ok</button>
       </form>
     </div>
   </div>
