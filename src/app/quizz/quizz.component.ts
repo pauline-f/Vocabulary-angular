@@ -6,6 +6,7 @@ import { Word } from '../models/Word.model';
 import { Languages } from '../models/Languages.model';
 import { Subscription } from 'rxjs/Subscription';
 import { LanguagesService } from '../services/languages.service';
+import { Observable } from 'rxjs/Rx';
 
 @Component({
   selector: 'app-quizz',
@@ -30,6 +31,9 @@ export class QuizzComponent implements OnInit {
   question: String;
   answer: String;
   quizz: number;
+  goodAnswer: boolean;
+  badAnswer: boolean;
+  theAnswer: string;
 
   constructor(private formBuilder: FormBuilder,
               private wordsService: WordsService,
@@ -117,25 +121,37 @@ export class QuizzComponent implements OnInit {
 
   findAnswer(): String {
     if (this.quizz === 0) {
-      return this.oneWord.translation;
+      this.theAnswer = this.oneWord.translation;
     } else if (this.quizz === 1) {
-      return this.oneWord.word;
+      this.theAnswer = this.oneWord.word;
     } else if (this.quizz === 2) {
-      return this.oneWord.word;
+      this.theAnswer = this.oneWord.word;
     }
+    return this.theAnswer;
   }
 
   checkAnswer() {
     var answer = this.quizzForm.get('answer').value;
 
     if (this.findAnswer() === answer) {
-      alert("Good answer!");
+      this.goodAnswer = true; 
+      let waitTime = Observable.timer(2000);
+      waitTime.subscribe( x => {
+          this.goodAnswer = false;
+          this.quizzRandom();
+          this.quizzForm.get('answer').setValue('');
+        } 
+      );        
     } else {
-      alert("The good answer was: " + this.findAnswer() + "!");
+      this.badAnswer = true; 
+      let waitTime = Observable.timer(2000);
+      waitTime.subscribe( x => {
+          this.badAnswer = false;
+          this.quizzRandom();
+          this.quizzForm.get('answer').setValue('');
+        } 
+      );  
     }
-
-    this.quizzRandom();
-    this.quizzForm.get('answer').setValue('');
   }
 
   audioQuestion() {
