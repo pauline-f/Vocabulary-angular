@@ -3,7 +3,7 @@
       <h2>Quizz</h2>
       <form [formGroup]="quizzForm">
         <div class="form-group">        
-          <div >
+          <div class="row">
             <label for="list">List</label>
             <select class="form-control" id="list" formControlName="list" (change)="wordsOfList()">
               <option *ngFor="let list of lists" [value]="list">{{ list }}</option>
@@ -11,14 +11,24 @@
           </div>
         </div>
         <div class="form-group">
-            <h3><img *ngIf="questionLanguage" src="assets/img/{{questionLanguage}}.png" style="margin-right: 10px;">{{ question }}</h3>
+          <div class="row">
+            <h3><img *ngIf="questionLanguage" src="assets/img/{{questionLanguage}}.png" style="margin-right: 10px;">
+              <button *ngIf="quizz===2" class="btn btn-default col-xs-1 align-middle" (click)="audioQuestion()">
+                <span class="glyphicon glyphicon-volume-up"></span>
+              </button>
+              {{ question }}
+            </h3>
+            
+          </div>
         </div>
 
         
         <div class="form-group">
-          <img *ngIf="answerLanguage" src="assets/img/{{answerLanguage}}.png" style="margin-right: 10px;">
-          <label for="answer">Answer</label>
-          <input type="text" class="form-control" id="answer" formControlName="answer">
+          <div class="row">
+            <img *ngIf="answerLanguage" src="assets/img/{{answerLanguage}}.png" style="margin-right: 10px;">
+            <label for="answer">Answer</label>
+            <input type="text" class="form-control" id="answer" formControlName="answer">
+          </div>
         </div>
         <button class="btn btn-success" [disabled]="quizzForm.invalid" type="submit" (click)="checkAnswer()">Ok</button>
       </form>

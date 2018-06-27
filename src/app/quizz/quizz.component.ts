@@ -19,11 +19,11 @@ export class QuizzComponent implements OnInit {
   wordsSubscription: Subscription;  
   listsSubscription: Subscription;
   languages: Languages[];
-  baseLanguage: String;
-  languageToLearn: String;
+  baseLanguage: string;
+  languageToLearn: string;
   languagesSubscription: Subscription;
-  questionLanguage: String;
-  answerLanguage: String;
+  questionLanguage: string;
+  answerLanguage: string;
 
   wordsList: Word[];
   oneWord: Word;
@@ -71,8 +71,7 @@ export class QuizzComponent implements OnInit {
 
   quizzRandom() {
     this.chooseOneWord();
-    this.quizz = Math.floor(Math.random() * 2);
-    console.log(this.quizz);
+    this.quizz = Math.floor(Math.random() * 3);
     this.loadFlags();
     this.displayQuestion();
     }
@@ -82,6 +81,9 @@ export class QuizzComponent implements OnInit {
       this.questionLanguage = this.baseLanguage;
       this.answerLanguage = this.languageToLearn;
     } else if (this.quizz === 1) {
+      this.questionLanguage = this.languageToLearn;
+      this.answerLanguage = this.baseLanguage;
+    } else if (this.quizz === 2) {
       this.questionLanguage = this.languageToLearn;
       this.answerLanguage = this.baseLanguage;
     }
@@ -107,6 +109,9 @@ export class QuizzComponent implements OnInit {
       this.question = this.oneWord.word;
     } else if (this.quizz === 1) {
       this.question = this.oneWord.translation;
+    } else if (this.quizz === 2) {
+      this.question = "";
+      this.audioQuestion();
     }
   }
 
@@ -114,6 +119,8 @@ export class QuizzComponent implements OnInit {
     if (this.quizz === 0) {
       return this.oneWord.translation;
     } else if (this.quizz === 1) {
+      return this.oneWord.word;
+    } else if (this.quizz === 2) {
       return this.oneWord.word;
     }
   }
@@ -129,6 +136,12 @@ export class QuizzComponent implements OnInit {
 
     this.quizzRandom();
     this.quizzForm.get('answer').setValue('');
+  }
+
+  audioQuestion() {
+    var audio = new SpeechSynthesisUtterance(this.oneWord.translation);
+    audio.lang = this.questionLanguage;
+    window.speechSynthesis.speak(audio);
   }
 
 }
