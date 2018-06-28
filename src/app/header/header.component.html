@@ -7,9 +7,15 @@
       <li routerLinkActive="active">
         <a routerLink="word/new">New word</a>
       </li>
-      <li routerLinkActive="active">
-        <a routerLink="quizz">Quizz</a>
-      </li>
+      <li routerLinkActive="active" class="dropdown">
+          <a routerLink="quizz" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Quizz<span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a routerLink="quizz">Word - Translation</a></li>
+            <li><a routerLink="quizz">Translation - Word</a></li>
+            <li><a routerLink="quizz">With sound</a></li>
+            <li><a routerLink="quizz">Mix</a></li>
+          </ul>
+        </li>
     </ul>
     <ul class="nav navbar-nav navbar-right">
       <li routerLinkActive="active" *ngIf="!isAuth">
