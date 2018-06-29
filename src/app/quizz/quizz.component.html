@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-sm-8 col-sm-offset-2">
-      <h2 *ngIf="!goodAnswer && !badAnswer">Quizz</h2>
+      <h2 *ngIf="!goodAnswer && !badAnswer">{{ labelQuizz }}</h2>
       <div *ngIf="goodAnswer" class="alert alert-success" id="goodAnswer">
         Good answer!
       </div>

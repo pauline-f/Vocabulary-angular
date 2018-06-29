@@ -8,6 +8,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { LanguagesService } from '../services/languages.service';
 import { Observable } from 'rxjs/Rx';
 
+
 @Component({
   selector: 'app-quizz',
   templateUrl: './quizz.component.html',
@@ -34,6 +35,8 @@ export class QuizzComponent implements OnInit {
   goodAnswer: boolean;
   badAnswer: boolean;
   theAnswer: string;
+  numQuizz: number;
+  labelQuizz: string;
 
   constructor(private formBuilder: FormBuilder,
               private wordsService: WordsService,
@@ -63,6 +66,18 @@ export class QuizzComponent implements OnInit {
       }
     );
     this.wordsService.getWords();
+
+    var num = this.router.url.charAt(this.router.url.length - 1);
+    this.numQuizz = +num;
+    if (this.numQuizz === 3) {
+      this.labelQuizz = "Random quizz";
+    } else if (this.numQuizz === 2) {
+      this.labelQuizz = "Speech quizz";
+    } else if (this.numQuizz === 1) {
+      this.labelQuizz = "Translation -> Word quizz";
+    } else if (this.numQuizz === 0) {
+      this.labelQuizz = "Word -> Translation quizz";
+    }
     this.initForm();
   }
 
@@ -73,12 +88,17 @@ export class QuizzComponent implements OnInit {
     });
   }
 
-  quizzRandom() {
+  playQuizz() {
+    if (this.numQuizz === 3) {
+      this.quizz = Math.floor(Math.random() * 3);
+      this.labelQuizz = "Random quizz";
+    } else  {
+      this.quizz = this.numQuizz;
+    }
     this.chooseOneWord();
-    this.quizz = Math.floor(Math.random() * 3);
     this.loadFlags();
     this.displayQuestion();
-    }
+  }
 
   loadFlags() {
     if (this.quizz === 0) {
@@ -101,7 +121,7 @@ export class QuizzComponent implements OnInit {
         this.wordsList.push(word);
       }
     }
-    this.quizzRandom();
+    this.playQuizz();
   }
 
   chooseOneWord() {
@@ -138,7 +158,7 @@ export class QuizzComponent implements OnInit {
       let waitTime = Observable.timer(2000);
       waitTime.subscribe( x => {
           this.goodAnswer = false;
-          this.quizzRandom();
+          this.playQuizz();
           this.quizzForm.get('answer').setValue('');
         } 
       );        
@@ -147,7 +167,7 @@ export class QuizzComponent implements OnInit {
       let waitTime = Observable.timer(2000);
       waitTime.subscribe( x => {
           this.badAnswer = false;
-          this.quizzRandom();
+          this.playQuizz();
           this.quizzForm.get('answer').setValue('');
         } 
       );  

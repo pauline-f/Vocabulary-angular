@@ -30,6 +30,10 @@ const appRoutes: Routes = [
   { path: 'word/new', canActivate:[AuthGuardService], component: WordFormComponent },
   { path: 'words/view/:id', canActivate:[AuthGuardService], component: SingleWordComponent },
   { path: 'quizz', canActivate:[AuthGuardService], component: QuizzComponent},
+  { path: 'quizz/0', canActivate:[AuthGuardService], component: QuizzComponent},
+  { path: 'quizz/1', canActivate:[AuthGuardService], component: QuizzComponent},
+  { path: 'quizz/2', canActivate:[AuthGuardService], component: QuizzComponent},
+  { path: 'quizz/3', canActivate:[AuthGuardService], component: QuizzComponent},
   { path: '', redirectTo: 'words', pathMatch:'full'},
   { path: '**', redirectTo: 'words'}
 ];
