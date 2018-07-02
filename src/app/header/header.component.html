@@ -10,10 +10,10 @@
       <li routerLinkActive="active" class="dropdown">
           <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Quizz<span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a routerLink="quizz/0">Word - Translation</a></li>
-            <li><a routerLink="quizz/1">Translation - Word</a></li>
+            <li><a routerLink="quizz/0">{{ baseLanguageConvert }} ⇾ {{ languageToLearnConvert }}</a></li>
+            <li><a routerLink="quizz/1">{{ languageToLearnConvert }} ⇾ {{ baseLanguageConvert }}</a></li>
             <li><a routerLink="quizz/2">Speech</a></li>
-            <li><a routerLink="quizz/3">Random quizz</a></li>
+            <li><a routerLink="quizz/3">Random</a></li>
           </ul>
         </li>
     </ul>

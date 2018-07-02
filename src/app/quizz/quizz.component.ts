@@ -26,6 +26,8 @@ export class QuizzComponent implements OnInit {
   languagesSubscription: Subscription;
   questionLanguage: string;
   answerLanguage: string;
+  baseLanguageConvert: string;
+  languageToLearnConvert: string;
 
   wordsList: Word[];
   oneWord: Word;
@@ -67,6 +69,7 @@ export class QuizzComponent implements OnInit {
     );
     this.wordsService.getWords();
 
+    this.convertLanguage();
     var num = this.router.url.charAt(this.router.url.length - 1);
     this.numQuizz = +num;
     if (this.numQuizz === 3) {
@@ -74,9 +77,9 @@ export class QuizzComponent implements OnInit {
     } else if (this.numQuizz === 2) {
       this.labelQuizz = "Speech quizz";
     } else if (this.numQuizz === 1) {
-      this.labelQuizz = "Translation -> Word quizz";
+      this.labelQuizz = this.languageToLearnConvert + " ⇾ " + this.baseLanguageConvert + " quizz";
     } else if (this.numQuizz === 0) {
-      this.labelQuizz = "Word -> Translation quizz";
+      this.labelQuizz = this.baseLanguageConvert + " ⇾ " + this.languageToLearnConvert + " quizz";
     }
     this.initForm();
   }
@@ -178,6 +181,46 @@ export class QuizzComponent implements OnInit {
     var audio = new SpeechSynthesisUtterance(this.oneWord.translation);
     audio.lang = this.questionLanguage;
     window.speechSynthesis.speak(audio);
+  }
+
+  convertLanguage() {
+    if (this.baseLanguage === "en") {
+      this.baseLanguageConvert = "English";
+    }
+    if (this.baseLanguage === "fr") {
+      this.baseLanguageConvert = "French";
+    }
+    if (this.baseLanguage === "de") {
+      this.baseLanguageConvert = "German";
+    }
+    if (this.baseLanguage === "it") {
+      this.baseLanguageConvert = "Italian";
+    }
+    if (this.baseLanguage === "es") {
+      this.baseLanguageConvert = "Spanish";
+    }
+    if (this.baseLanguage === "sv") {
+      this.baseLanguageConvert = "Swedish";
+    }
+
+    if (this.languageToLearn === "en") {
+      this.languageToLearnConvert = "English";
+    }
+    if (this.languageToLearn === "fr") {
+      this.languageToLearnConvert = "French";
+    }
+    if (this.languageToLearn === "de") {
+      this.languageToLearnConvert = "German";
+    }
+    if (this.languageToLearn === "it") {
+      this.languageToLearnConvert = "Italian";
+    }
+    if (this.languageToLearn === "es") {
+      this.languageToLearnConvert = "Spanish";
+    }
+    if (this.languageToLearn === "sv") {
+      this.languageToLearnConvert = "Swedish";
+    }
   }
 
 }
