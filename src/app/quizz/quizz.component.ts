@@ -26,8 +26,8 @@ export class QuizzComponent implements OnInit {
   languagesSubscription: Subscription;
   questionLanguage: string;
   answerLanguage: string;
-  baseLanguageConvert: string;
-  languageToLearnConvert: string;
+  baseLanguageConvert: string = "";
+  languageToLearnConvert: string = "";
 
   wordsList: Word[];
   oneWord: Word;
@@ -51,6 +51,7 @@ export class QuizzComponent implements OnInit {
         this.languages = languages;
         this.baseLanguage = this.languages[0].baseLanguage;
         this.languageToLearn = this.languages[0].languageToLearn;
+        this.convertLanguage();
       }
     );
     this.languagesService.getLanguages();
@@ -69,7 +70,6 @@ export class QuizzComponent implements OnInit {
     );
     this.wordsService.getWords();
 
-    this.convertLanguage();
     var num = this.router.url.charAt(this.router.url.length - 1);
     this.numQuizz = +num;
     if (this.numQuizz === 3) {

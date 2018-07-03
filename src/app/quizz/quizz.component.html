@@ -1,13 +1,12 @@
-<div class="row">
     <div class="col-sm-8 col-sm-offset-2">
       <h2 *ngIf="!goodAnswer && !badAnswer">{{ labelQuizz }}</h2>
       <div *ngIf="goodAnswer" class="alert alert-success" id="goodAnswer">
         Good answer!
       </div>
       <div *ngIf="badAnswer" class="alert alert-danger">
-          The good answer was: {{ theAnswer }}!
-        </div>
-      <form [formGroup]="quizzForm">
+        The good answer was: {{ theAnswer }}!
+      </div>
+      <form [formGroup]="quizzForm" (ngSubmit)="checkAnswer()">
         <div class="form-group">        
           <div class="row">
             <label for="list">List</label>
@@ -34,7 +33,6 @@
             <input type="text" class="form-control" id="answer" formControlName="answer">
           </div>
         </div>
-        <button class="btn btn-success" [disabled]="quizzForm.invalid" type="submit" (click)="checkAnswer()">Ok</button>
+        <button class="btn btn-success" [disabled]="quizzForm.invalid" type="submit">Ok</button>
       </form>
     </div>
-  </div>

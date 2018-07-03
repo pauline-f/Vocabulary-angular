@@ -1,12 +1,20 @@
-<h1>{{ word.list }}</h1>
+<div class="container">
+  <h1>{{ word.list }}</h1>
 
-<h4>
-  <img *ngIf="baseLanguage" src="assets/img/{{baseLanguage}}.png" style="margin-right: 10px;">{{ word.word }}
-</h4>
+  <h4>
+    <img *ngIf="baseLanguage" src="assets/img/{{baseLanguage}}.png" style="margin-right: 10px;">{{ word.word }}
+  </h4>
 
-<h4>
-  <img *ngIf="languageToLearn" src="assets/img/{{languageToLearn}}.png" style="margin-right: 10px;">{{ word.translation }}
-</h4>
+  <h4>
+    <img *ngIf="languageToLearn" src="assets/img/{{languageToLearn}}.png" style="margin-right: 10px;">{{ word.translation }}
+  </h4>
 
-<button class="btn btn-default" (click)="onBack()">Back</button>
+  <button class="btn btn-primary col-xs-1 align-middle" (click)="audioWord(word)">
+    <span class="glyphicon glyphicon-volume-up"></span>
+  </button>
+</div>
+
+<div class="container" style="margin-top: 20px;">
+  <button class="btn btn-default" (click)="onBack()">Back</button>
+</div>
 

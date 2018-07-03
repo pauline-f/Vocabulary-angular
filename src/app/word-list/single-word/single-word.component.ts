@@ -15,8 +15,8 @@ export class SingleWordComponent implements OnInit {
 
   word: Word;
   languages: Languages[];
-  baseLanguage: String;
-  languageToLearn: String;
+  baseLanguage: string;
+  languageToLearn: string;
   languagesSubscription: Subscription;
 
   constructor(private route: ActivatedRoute,
@@ -47,6 +47,12 @@ export class SingleWordComponent implements OnInit {
 
   onBack() {
     this.router.navigate(['/words']);
+  }
+
+  audioWord(word: Word) {
+    var audio = new SpeechSynthesisUtterance(word.translation);
+    audio.lang = this.languageToLearn;
+    window.speechSynthesis.speak(audio);
   }
 
 }
