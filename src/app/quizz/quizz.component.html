@@ -8,31 +8,26 @@
       </div>
       <form [formGroup]="quizzForm" (ngSubmit)="checkAnswer()">
         <div class="form-group">        
-          <div class="row">
             <label for="list">List</label>
             <select class="form-control" id="list" formControlName="list" (change)="wordsOfList()">
               <option *ngFor="let list of lists" [value]="list">{{ list }}</option>
             </select>
-          </div>
         </div>
         <div class="form-group">
-          <div class="row">
             <h3><img *ngIf="questionLanguage" src="assets/img/{{questionLanguage}}.png" style="margin-right: 10px;">
-              <button *ngIf="quizz===2" class="btn btn-default col-xs-1 align-middle" (click)="audioQuestion()">
+              <button *ngIf="quizz===2" class="btn btn-default col-xs-1 align-middle" (click)="audioQuestion()" type="button">
                 <span class="glyphicon glyphicon-volume-up"></span>
               </button>
               {{ question }}
             </h3>
-          </div>
         </div>
-        
         <div class="form-group">
-          <div class="row">
             <img *ngIf="answerLanguage" src="assets/img/{{answerLanguage}}.png" style="margin-right: 10px;">
             <label for="answer">Answer</label>
             <input type="text" class="form-control" id="answer" formControlName="answer">
-          </div>
         </div>
-        <button class="btn btn-success" [disabled]="quizzForm.invalid" type="submit">Ok</button>
+        <div class="form-group">
+          <button class="btn btn-success" [disabled]="quizzForm.invalid" type="submit">Ok</button>
+        </div>
       </form>
     </div>
