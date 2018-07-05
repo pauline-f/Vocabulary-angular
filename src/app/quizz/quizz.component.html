@@ -6,7 +6,7 @@
       <div *ngIf="badAnswer" class="alert alert-danger">
         The good answer was: {{ theAnswer }}!
       </div>
-      <form [formGroup]="quizzForm" (ngSubmit)="checkAnswer()">
+      <form [formGroup]="quizzForm" (ngSubmit)="checkAnswer()" autocomplete="off">
         <div class="form-group">        
             <label for="list">List</label>
             <select class="form-control" id="list" formControlName="list" (change)="wordsOfList()">
@@ -24,7 +24,7 @@
         <div class="form-group">
             <img *ngIf="answerLanguage" src="assets/img/{{answerLanguage}}.png" style="margin-right: 10px;">
             <label for="answer">Answer</label>
-            <input type="text" class="form-control" id="answer" formControlName="answer">
+            <input type="text" class="form-control" #answer id="answer" formControlName="answer">
         </div>
         <div class="form-group">
           <button class="btn btn-success" [disabled]="quizzForm.invalid" type="submit">Ok</button>

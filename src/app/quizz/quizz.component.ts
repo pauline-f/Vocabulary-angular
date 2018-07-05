@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, Renderer } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { WordsService } from '../services/words.service';
 import { Router } from '@angular/router';
@@ -15,6 +15,7 @@ import { Observable } from 'rxjs/Rx';
   styleUrls: ['./quizz.component.scss']
 })
 export class QuizzComponent implements OnInit {
+  @ViewChild('answer') answer: ElementRef;
   words: Word[];
   quizzForm: FormGroup;
   lists: String[];
@@ -32,7 +33,6 @@ export class QuizzComponent implements OnInit {
   wordsList: Word[];
   oneWord: Word;
   question: String;
-  answer: String;
   quizz: number;
   goodAnswer: boolean;
   badAnswer: boolean;
@@ -43,7 +43,8 @@ export class QuizzComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
               private wordsService: WordsService,
               private router: Router,
-              private languagesService: LanguagesService) { }
+              private languagesService: LanguagesService,
+              private renderer: Renderer) { }
 
   ngOnInit() {
     this.languagesSubscription = this.languagesService.languagesSubject.subscribe(
@@ -124,6 +125,7 @@ export class QuizzComponent implements OnInit {
         this.wordsList.push(word);
       }
     }
+    this.answer.nativeElement.focus();
     this.playQuizz();
   }
 
@@ -175,6 +177,7 @@ export class QuizzComponent implements OnInit {
         } 
       );  
     }
+    this.answer.nativeElement.focus();
   }
 
   audioQuestion() {

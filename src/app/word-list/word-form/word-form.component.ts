@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, Renderer } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { WordsService } from '../../services/words.service';
 import { Router } from '@angular/router';
@@ -17,6 +17,7 @@ import { LanguagesService } from '../../services/languages.service';
   providers: [Globals]
 })
 export class WordFormComponent implements OnInit {
+  @ViewChild('word') word: ElementRef;
   words: Word[];
   wordForm: FormGroup;
   languages: Languages[];
@@ -33,7 +34,8 @@ export class WordFormComponent implements OnInit {
               private router: Router,
               private translateService: TranslateService, 
               private globals: Globals,
-              private languagesService: LanguagesService) { }
+              private languagesService: LanguagesService, 
+              private renderer: Renderer) { }
 
   ngOnInit() {
     this.wordsSubscription = this.wordsService.wordsSubject.subscribe(
@@ -88,6 +90,7 @@ export class WordFormComponent implements OnInit {
     this.wordsService.createNewWord(newWord);
     this.wordForm.get('word').setValue('');
     this.wordForm.get('translation').setValue('');
+    this.word.nativeElement.focus();
   }
 
   translateOneWord() {
