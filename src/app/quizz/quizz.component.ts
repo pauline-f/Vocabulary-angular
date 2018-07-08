@@ -53,6 +53,7 @@ export class QuizzComponent implements OnInit {
         this.baseLanguage = this.languages[0].baseLanguage;
         this.languageToLearn = this.languages[0].languageToLearn;
         this.convertLanguage();
+        this.displayQuizzName();
       }
     );
     this.languagesService.getLanguages();
@@ -71,6 +72,18 @@ export class QuizzComponent implements OnInit {
     );
     this.wordsService.getWords();
 
+
+    this.initForm();
+  }
+
+  initForm() {
+    this.quizzForm = this.formBuilder.group( {
+      list: ['', Validators.required],
+      answer: ['', Validators.required]
+    });
+  }
+
+  displayQuizzName() {
     var num = this.router.url.charAt(this.router.url.length - 1);
     this.numQuizz = +num;
     if (this.numQuizz === 3) {
@@ -82,14 +95,6 @@ export class QuizzComponent implements OnInit {
     } else if (this.numQuizz === 0) {
       this.labelQuizz = this.baseLanguageConvert + " ⇾ " + this.languageToLearnConvert + " quizz";
     }
-    this.initForm();
-  }
-
-  initForm() {
-    this.quizzForm = this.formBuilder.group( {
-      list: ['', Validators.required],
-      answer: ['', Validators.required]
-    });
   }
 
   playQuizz() {
