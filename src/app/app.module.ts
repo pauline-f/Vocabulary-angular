@@ -19,7 +19,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { FilterPipe } from './filter.pipe';
 import { QuizzComponent } from './quizz/quizz.component';
 import { TranslateService } from './services/translate.service';
-import { Globals } from './globals';
 
 
 
@@ -62,8 +61,7 @@ const appRoutes: Routes = [
     WordsService,
     AuthGuardService,
     LanguagesService,
-    TranslateService,
-    Globals
+    TranslateService
   ],
   bootstrap: [AppComponent]
 })

@@ -3,7 +3,6 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs/Rx';
 import { of } from 'rxjs/observable/of';
 import { AppComponent } from '../app.component';
-import { Globals } from '../globals';
 
 @Injectable()
 export class TranslateService {
@@ -83,50 +82,54 @@ export class TranslateService {
   // calls API to translate the inputted text
   translate(fromLang: string, toLang: string, text: string)
   {
-    // gets the AuthN token
-    this.http.post(
-      'https://api.cognitive.microsoft.com/sts/v1.0/issueToken',
-      {
-        // no body for this call
-      },
-      {
-        headers:
+    const observable = new Observable((observer) => {
+      // gets the AuthN token
+      this.http.post(
+        'https://api.cognitive.microsoft.com/sts/v1.0/issueToken',
         {
-          'Ocp-Apim-Subscription-Key': ''
+          // no body for this call
         },
-        'responseType': 'text'
-      }
-    ).subscribe(
-      (token) => {
-        this.authToken = token;
-        let params = new HttpParams().set('to', toLang)
-              .set('text', text)
-              .set('from', fromLang)
-              .set('appid', 'Bearer ' + this.authToken);
-
-        // gets the translated text
-        return this.http.get(
-          'https://api.microsofttranslator.com/V2/Http.svc/Translate',
+        {
+          headers:
           {
-            params,
-            'responseType': 'text'
-          }
-        ).subscribe(
-          res => {
-            var temp = res.toString();
-            var result = temp.substring(temp.indexOf('>')+1, temp.indexOf('<',2));
-            Globals.TRANSLATED_TEXT = result;
+            'Ocp-Apim-Subscription-Key': ''
           },
-          err => {
-            console.log("Error in translation");
-          },
-        );
-      },
-      err => {
-        console.log("Error in getting the token");
-      },
-      () => {
-      }
-    );
+          'responseType': 'text'
+        }
+      ).subscribe(
+        (token) => {
+          this.authToken = token;
+          let params = new HttpParams().set('to', toLang)
+                .set('text', text)
+                .set('from', fromLang)
+                .set('appid', 'Bearer ' + this.authToken);
+
+          // gets the translated text
+          return this.http.get(
+            'https://api.microsofttranslator.com/V2/Http.svc/Translate',
+            {
+              params,
+              'responseType': 'text'
+            }
+          ).subscribe(
+            res => {
+              var temp = res.toString();
+              var result = temp.substring(temp.indexOf('>')+1, temp.indexOf('<',2));
+              observer.next(result);
+              observer.complete();
+            },
+            err => {
+              observer.error("Error in translation");
+            },
+          );
+        },
+        err => {
+          observer.error("Error in translation");
+        },
+        () => {
+        }
+      );
+    })
+    return observable;
   }
 }

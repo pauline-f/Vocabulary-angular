@@ -5,7 +5,6 @@ import { Router } from '@angular/router';
 import { Word } from '../../models/Word.model';
 import { Subscription } from 'rxjs/Subscription';
 import { TranslateService } from '../../services/translate.service';
-import { Globals } from '../../globals';
 import { Observable } from 'rxjs/Rx';
 import { Languages } from '../../models/Languages.model';
 import { LanguagesService } from '../../services/languages.service';
@@ -14,7 +13,7 @@ import { LanguagesService } from '../../services/languages.service';
   selector: 'app-word-form',
   templateUrl: './word-form.component.html',
   styleUrls: ['./word-form.component.scss'],
-  providers: [Globals]
+  providers: []
 })
 export class WordFormComponent implements OnInit {
   @ViewChild('word') word: ElementRef;
@@ -33,7 +32,6 @@ export class WordFormComponent implements OnInit {
               private wordsService: WordsService,
               private router: Router,
               private translateService: TranslateService, 
-              private globals: Globals,
               private languagesService: LanguagesService, 
               private renderer: Renderer) { }
 
@@ -95,14 +93,11 @@ export class WordFormComponent implements OnInit {
 
   translateOneWord() {
     const word = this.wordForm.get('word').value;
-    this.translateService.translate(this.languages[0].baseLanguage, this.languages[0].languageToLearn, word);
-    let waitTime = Observable.timer(2000);
-    waitTime.subscribe( x => {
-      this.wordForm.get('translation').setValue(Globals.TRANSLATED_TEXT);
-     } 
+    this.translateService
+    .translate(this.languages[0].baseLanguage, this.languages[0].languageToLearn, word)
+    .subscribe(
+      translated => { this.wordForm.get('translation').setValue(translated); },
+      err => { console.log(err); }
     );    
-    
   }
-  
-
 }
