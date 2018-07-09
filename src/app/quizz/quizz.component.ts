@@ -1,7 +1,7 @@
 import { Component, OnInit, ElementRef, ViewChild, Renderer } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { WordsService } from '../services/words.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Word } from '../models/Word.model';
 import { Languages } from '../models/Languages.model';
 import { Subscription } from 'rxjs/Subscription';
@@ -39,12 +39,14 @@ export class QuizzComponent implements OnInit {
   theAnswer: string;
   numQuizz: number;
   labelQuizz: string;
+  quizzNames: String[] = new Array("from-your-language", "from-learned-language", "speech", "random");
 
   constructor(private formBuilder: FormBuilder,
               private wordsService: WordsService,
               private router: Router,
               private languagesService: LanguagesService,
-              private renderer: Renderer) { }
+              private renderer: Renderer,
+              private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.languagesSubscription = this.languagesService.languagesSubject.subscribe(
@@ -53,7 +55,7 @@ export class QuizzComponent implements OnInit {
         this.baseLanguage = this.languages[0].baseLanguage;
         this.languageToLearn = this.languages[0].languageToLearn;
         this.convertLanguage();
-        this.displayQuizzName();
+        this.route.params.subscribe(params => this.displayQuizzName(params));
       }
     );
     this.languagesService.getLanguages();
@@ -83,9 +85,9 @@ export class QuizzComponent implements OnInit {
     });
   }
 
-  displayQuizzName() {
-    var num = this.router.url.charAt(this.router.url.length - 1);
-    this.numQuizz = +num;
+  displayQuizzName(params) {
+    const name = params['quizz-type'];
+    this.numQuizz = this.quizzNames.findIndex(x => x === name);
     if (this.numQuizz === 3) {
       this.labelQuizz = "Random quizz";
     } else if (this.numQuizz === 2) {

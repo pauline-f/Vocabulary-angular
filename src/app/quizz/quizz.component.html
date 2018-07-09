@@ -14,8 +14,8 @@
             </select>
         </div>
         <div class="form-group">
-            <h3><img *ngIf="questionLanguage" src="assets/img/{{questionLanguage}}.png" style="margin-right: 10px;">
-              <button *ngIf="quizz===2" class="btn btn-default col-xs-1 align-middle" (click)="audioQuestion()" type="button">
+            <h3><img *ngIf="questionLanguage" src="assets/img/{{questionLanguage}}.png" style="margin-right: 10px;"/>
+              <button *ngIf="quizz===2" class="btn btn-default" (click)="audioQuestion()" type="button">
                 <span class="glyphicon glyphicon-volume-up"></span>
               </button>
               {{ question }}
