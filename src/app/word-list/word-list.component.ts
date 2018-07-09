@@ -15,6 +15,7 @@ import { Languages } from '../models/Languages.model';
 export class WordListComponent implements OnInit, OnDestroy {
   words: Word[];
   lists: String[];
+  list: String;
   languages: Languages[];
   wordsSubscription: Subscription;
   listsSubscription: Subscription;
