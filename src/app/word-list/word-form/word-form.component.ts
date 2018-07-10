@@ -81,9 +81,9 @@ export class WordFormComponent implements OnInit {
   }
 
   onSaveWord() {
-    const list = this.wordForm.get('list').value;
-    const word = this.wordForm.get('word').value;
-    const translation = this.wordForm.get('translation').value;
+    const list = this.wordForm.get('list').value.trim();
+    const word = this.wordForm.get('word').value.trim();
+    const translation = this.wordForm.get('translation').value.trim();
     const newWord = new Word(list, word, translation);
     this.wordsService.createNewWord(newWord);
     this.wordForm.get('word').setValue('');

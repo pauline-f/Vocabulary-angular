@@ -21,6 +21,7 @@ export class QuizzComponent implements OnInit {
   lists: String[];
   wordsSubscription: Subscription;  
   listsSubscription: Subscription;
+  routeSubscription: Subscription;
   languages: Languages[];
   baseLanguage: string;
   languageToLearn: string;
@@ -55,7 +56,11 @@ export class QuizzComponent implements OnInit {
         this.baseLanguage = this.languages[0].baseLanguage;
         this.languageToLearn = this.languages[0].languageToLearn;
         this.convertLanguage();
-        this.route.params.subscribe(params => this.displayQuizzName(params));
+        this.routeSubscription = this.route.params.subscribe(
+          params => {
+            this.displayQuizzName(params);
+            this.resetQuizz();
+          });
       }
     );
     this.languagesService.getLanguages();
@@ -77,6 +82,10 @@ export class QuizzComponent implements OnInit {
 
     this.initForm();
   }
+
+  ngOnDestroy() {
+    this.routeSubscription.unsubscribe();
+}
 
   initForm() {
     this.quizzForm = this.formBuilder.group( {
@@ -162,10 +171,20 @@ export class QuizzComponent implements OnInit {
     return this.theAnswer;
   }
 
+  resetQuizz() {
+    if(!this.quizzForm)
+      return;
+    this.quizzForm.get('list').setValue('');
+    this.question = "";
+    this.quizzForm.get('answer').setValue('');
+    this.questionLanguage = "";
+    this.answerLanguage = "";
+  }
+
   checkAnswer() {
     var answer = this.quizzForm.get('answer').value;
 
-    if (this.findAnswer() === answer) {
+    if (this.findAnswer() === answer.trim()) {
       this.goodAnswer = true; 
       let waitTime = Observable.timer(2000);
       waitTime.subscribe( x => {
