@@ -1,5 +1,7 @@
 # Vocabulary-angular
 
+DEMO: https://vocabulary-cd6bb.firebaseapp.com/
+
 This application's goal is to help learning vocabulary in another language. 
 First, the user creates a login and chooses his language and the language he wants to learn.
 The user can add words in a list. For each word, there is a translation.
